@@ -1,6 +1,8 @@
 name: Dockerize Meep
 
-on: [push]
+on:
+  schedule:
+    - cron:  '0 2 * * *'
 
 jobs:
   build:
