@@ -1,5 +1,6 @@
 FROM linuxserver/code-server
 
+COPY config.yaml /root/.config/code-server/config.yaml
 COPY Miniconda3-latest-Linux-x86_64.sh /root/miniconda3/miniconda.sh
 
 RUN mkdir -p /root/miniconda3 \
@@ -8,4 +9,3 @@ RUN mkdir -p /root/miniconda3 \
     && /root/miniconda3/bin/conda init bash
 
 RUN /root/miniconda3/bin/conda create -n mp -c conda-forge pymeep pymeep-extras
-    
