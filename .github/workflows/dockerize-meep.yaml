@@ -9,12 +9,23 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - run: |
-        wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh 
+    - name: Checkout code
+      uses: actions/checkout@v3
+    - name: Dockerize meep 
+      run: |
+        wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
         echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin
         docker build -t soerensofke/meep:latest .
-        docker push soerensofke/meep:latest       
+        docker export $(docker create soerensofke/meep:latest) | gzip > latest.tar.gz
+    - name: Push to docker hub
+        docker push soerensofke/meep:latest        
       env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+    - name: Release on github
+      uses: actions/create-release@v1
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+      with:
+          tag_name: ${{ github.run_number }}
+          release_name: ${{ github.run_number }}
