@@ -1,4 +1,4 @@
-name: Docker Image Verilog
+name: Dockerize Meep
 
 on: [push]
 
