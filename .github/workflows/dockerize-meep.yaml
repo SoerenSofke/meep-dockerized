@@ -18,6 +18,7 @@ jobs:
         docker build -t soerensofke/meep:latest .
         docker export $(docker create soerensofke/meep:latest) | gzip > latest.tar.gz
     - name: Push to docker hub
+      run: 
         docker push soerensofke/meep:latest        
       env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
