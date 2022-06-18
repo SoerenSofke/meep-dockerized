@@ -10,7 +10,6 @@ RUN mkdir -p /root/miniconda3 \
     && rm -rf ~/miniconda3/miniconda.sh \
     && /root/miniconda3/bin/conda init bash \
     && cat /config/.bashrc >> /root/.bashrc \
-    && mv /config/.conda/ /root/ \
-    && rm -r /config
+    && mv /config/.conda/ /root/ 
 
 RUN /root/miniconda3/bin/conda create -n mp -c conda-forge pymeep pymeep-extras
