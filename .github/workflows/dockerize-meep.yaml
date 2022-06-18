@@ -15,7 +15,7 @@ jobs:
       run: |
         wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh        
         docker build -t soerensofke/meep:latest .
-        docker export $(docker create soerensofke/meep:latest) | gzip > meep-dockerized.tar.gz
+        docker export $(docker create soerensofke/meep:latest) | gzip > meep-rootfs.tar.gz
     - name: Push to docker hub
       run: |
         echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin
@@ -37,8 +37,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
           upload_url: ${{ steps.release_on_github.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: ./meep-dockerized.tar.gz
-          asset_name: meep-dockerized.tar.gz
+          asset_path: ./meep-rootfs.tar.gz
+          asset_name: meep-rootfs-v{{ github.run_number }}.tar.gz
           asset_content_type: application/gzip
                     
     
