@@ -1,4 +1,7 @@
-FROM linuxserver/code-server
+FROM linuxserver/code-server^
+
+USER root
+WORKDIR /root
 
 COPY config.yaml /root/.config/code-server/config.yaml
 COPY Miniconda3-latest-Linux-x86_64.sh /root/miniconda3/miniconda.sh
