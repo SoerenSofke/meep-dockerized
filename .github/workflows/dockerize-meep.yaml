@@ -1,0 +1,16 @@
+name: Docker Image Verilog
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      run: |
+        echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin
+        docker build -t soerensofke/meep:latest .
+        docker push soerensofke/meep:latest       
+      env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
