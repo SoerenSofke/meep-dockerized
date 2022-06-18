@@ -1,4 +1,4 @@
-FROM linuxserver/code-server^
+FROM linuxserver/code-server
 
 USER root
 WORKDIR /root
