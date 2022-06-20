@@ -10,4 +10,4 @@ RUN mkdir -p /root/miniconda3 \
     && cat /config/.bashrc >> /root/.bashrc \
     && mv /config/.conda/ /root/ 
 
-RUN /root/miniconda3/bin/conda create -n mp -c conda-forge pymeep pymeep-extras
+RUN /root/miniconda3/bin/conda create -n mp -c conda-forge pymeep pymeep-extras matplotlib
